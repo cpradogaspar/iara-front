@@ -1,0 +1,4 @@
+#Fri Nov 15 00:59:53 BRST 2019
+base.0=C\:\\Users\\Nelson\\Desktop\\novoprojeto\\iara\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex
