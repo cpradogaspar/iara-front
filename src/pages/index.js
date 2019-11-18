@@ -7,6 +7,8 @@ export * from './SignUp';
 export * from './SignIn';
 export * from './Relatorio';
 export * from './RelatorioForm';
+export * from './NovoRelatorio';
+export * from './Selecao';
 //export * from './Grafico';
 export * from './Home';
 //export * from './Analise'; 

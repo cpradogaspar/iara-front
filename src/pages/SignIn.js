@@ -14,29 +14,28 @@ class SignIn extends Component {
   }
 
   async handleLogin() {
-    // await API.post('/login', { user_name: this.state.user_name, password: this.state.password }).then(response => {
-    //   if (response.data.login_confirmed == true) {
-    //     onSignIn(this.state.user_name).then(() => this.props.navigation.navigate('SignedIn'))
-    //   } else {
-    //     Alert.alert(
-    //       'Erro!',
-    //       'Verifique os campos e tente novamente',
-    //       [
-    //         { text: 'OK', onPress: () => console.log('OK Pressed') },
-    //       ],
-    //       { cancelable: false },
-    //     );
-    //   }
-    // })
-    onSignIn(this.state.user_name).then(() =>
-      this.props.navigation.navigate('Menu'),
-    );
+    await API.get('/usuario/login/'+this.state.user_name+'/'+this.state.password).then(response => {
+      if (response.status == 200) {
+        console.log(response.data)
+        onSignIn(`${response.data}`).then(() => this.props.navigation.navigate('Menu'))
+      } else {
+        Alert.alert(
+          'Erro!',
+          'Verifique os campos e tente novamente',
+          [
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
+          ],
+          { cancelable: false },
+        );
+      }
+    })
+    .catch(err => console.log(err))
   }
 
   componentDidMount() {
     isSignedIn().then(res => {
       if (res === true) {
-        this.props.navigation.navigate('SignedIn');
+        this.props.navigation.navigate('Menu');
       }
     });
   }

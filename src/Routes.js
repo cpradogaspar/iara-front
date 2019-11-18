@@ -7,6 +7,9 @@ import Settings from './pages/Settings';
 import Relatorio from './pages/Relatorio';
 import Analise from './pages/Analise';
 import History from './pages/History';
+import NovoRelatorio from './pages/NovoRelatorio';
+import Selecao from './pages/Selecao';
+import MaxMin from './pages/MaxMin';
 
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -84,7 +87,37 @@ const Routes = createAppContainer(
     History: {
       screen: History,
       navigationOptions: {
-        headerTitle: 'Histórico',
+        //headerTitle: 'Histórico',
+        headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: '#00669E',
+        },
+      },
+    },
+    NovoRelatorio: {
+      screen: NovoRelatorio,
+      navigationOptions: {
+        headerTitle: 'Novo Relatório',
+        headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: '#00669E',
+        },
+      },
+    },
+    Selecao: {
+      screen: Selecao,
+      navigationOptions: {
+        headerTitle: 'Selecione',
+        headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: '#00669E',
+        },
+      },
+    },
+    MaxMin: {
+      screen: MaxMin,
+      navigationOptions: {
+        headerTitle: 'Máximo e Mínimo',
         headerTintColor: '#fff',
         headerStyle: {
           backgroundColor: '#00669E',

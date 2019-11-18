@@ -14,9 +14,59 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CardView from 'react-native-cardview';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/Entypo';
+import API from '../services/API';
+import { HeaderTitle } from 'react-navigation-stack';
+
+let ultimaSincron = new Date().toTimeString().split(' ')[0]
 
 class Home extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      temperatura:'',
+      ph:'',
+      turbidez:'',
+      nivel:'',
+      condutividade:'',
+      ponto:0
+    }
+  }
+
+
+  componentDidMount(){
+    API.get('/analise_aux/ultima').then(response =>{
+      console.log(response.data)
+      response.data.forEach(prop =>{
+        switch(prop.propriedade){
+          case 1:
+            this.setState({ ph: parseFloat(prop.valor).toFixed(1)})
+            if(prop.resultado == 1) this.setState({ ponto: this.state.ponto + 20})
+            break
+          case 2:
+            this.setState({ nivel: parseFloat(prop.valor).toFixed(1)})
+            if(prop.resultado == 1) this.setState({ ponto: this.state.ponto + 20})
+            break
+          case 3:
+            this.setState({ temperatura: parseFloat(prop.valor).toFixed(1)})
+            if(prop.resultado == 1) this.setState({ ponto: this.state.ponto + 20})
+            break
+          case 4:
+            this.setState({ turbidez: parseFloat(prop.valor).toFixed(1)})
+            if(prop.resultado == 1) this.setState({ ponto: this.state.ponto + 20})
+            break  
+          case 5:
+            this.setState({ condutividade: parseFloat(prop.valor).toFixed(1)})
+            if(prop.resultado == 1) this.setState({ ponto: this.state.ponto + 20})
+            break
+          
+        }
+      }) 
+
+    })
+    .catch(err => console.log(err))
+  }
   render() {
+    const { temperatura, ph, turbidez, nivel, condutividade, ponto } = this.state
     return (
       <SafeAreaView>
         <ScrollView>
@@ -40,7 +90,7 @@ class Home extends Component {
                   textAlign: 'center',
                   fontFamily: 'Open Sans',
                 }}>
-                Última sincronização 12:37
+                Última sincronização {ultimaSincron}
             </Text>
               <Text
                 style={{
@@ -60,13 +110,13 @@ class Home extends Component {
                   fontWeight: 'bold',
                   fontFamily: 'Open Sans',
                 }}>
-                87
+                {ponto}
             </Text>
             </ImageBackground>
           </View>
 
           <View style={styles.container2}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Analise')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('History',{value: temperatura, hor:ultimaSincron, title: 'Temperatura', id:3})}>
               <CardView
                 cardElevation={5}
                 cardMaxElevation={5}
@@ -82,13 +132,13 @@ class Home extends Component {
                     Temperatura(°c):
                 </Text>
                   <Text style={styles.values}>
-                    16
+                    {temperatura}
                 </Text>
                 </View>
               </CardView>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Analise')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('History',{value: ph, hor:ultimaSincron, title: 'Potencial Hidrogeniônico', id:1})}>
               <CardView
                 cardElevation={5}
                 cardMaxElevation={5}
@@ -105,13 +155,13 @@ class Home extends Component {
                     p. Hidrogeniônico(pH):
                 </Text>
                   <Text style={styles.values}>
-                    7.5
+                    {ph}
                 </Text>
                 </View>
               </CardView>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Analise')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('History',{value: turbidez, hor:ultimaSincron, title: 'Turbidez', id:4})}>
               <CardView
                 cardElevation={5}
                 cardMaxElevation={5}
@@ -127,13 +177,13 @@ class Home extends Component {
                     Turbidez(NTU):
                 </Text>
                   <Text style={styles.values}>
-                    5
+                    {turbidez}
                 </Text>
                 </View>
               </CardView>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Analise')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('History',{value: nivel, hor:ultimaSincron, title: 'Nível da água', id:2})}>
               <CardView
                 cardElevation={5}
                 cardMaxElevation={5}
@@ -149,13 +199,13 @@ class Home extends Component {
                     Nível d'água(m):
                 </Text>
                   <Text style={styles.values}>
-                    3
+                    {nivel}
                 </Text>
                 </View>
               </CardView>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Analise')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('History',{value: condutividade, hor:ultimaSincron, title: 'Condutividade', id:5})}>
               <CardView
                 cardElevation={5}
                 cardMaxElevation={5}
@@ -171,7 +221,7 @@ class Home extends Component {
                     Condutividade(μs/cm):
                 </Text>
                   <Text style={styles.values}>
-                    69
+                    {condutividade}
                 </Text>
                 </View>
               </CardView>

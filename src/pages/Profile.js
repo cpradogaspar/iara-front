@@ -26,7 +26,7 @@ class Profile extends Component {
   }
 
   async componentWillMount() {
-    let user_name = await AsyncStorage.getItem(USER_KEY)
+    let user_name = await AsyncStorage.getItem('auth-demo-key')
     await API.post('/getInfo', { user_name: user_name }).then(response => {
       this.setState({ user_name: response.data.user_name })
       this.setState({ email: response.data.email })

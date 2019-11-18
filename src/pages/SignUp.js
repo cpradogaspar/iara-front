@@ -10,13 +10,13 @@ class SignUp extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { email: '', user_name: '', password: '' };
+    this.state = { email: '', user_name: '', city:'', country:'', password: '' };
     this.handleRegister = this.handleRegister.bind(this)
   }
-  state = { email: '', user_name: '', password: '' };
+  state = { email: '', user_name: '', city:'', country:'', password: '' };
 
   async handleRegister() {
-    await API.post('/register', { user_name: this.state.user_name, password: this.state.password, email: this.state.email }).then(response => {
+    await API.post('/registrar', { user_name: this.state.user_name, password: this.state.password, email: this.state.email }).then(response => {
 
       if (response.data.code == 200) {
         Alert.alert(
@@ -67,6 +67,26 @@ class SignUp extends Component {
           </View>
 
           <View style={styles.section}>
+            <Icon name="location-city" size={20} style={{ marginLeft: 10 }} />
+            <TextInput
+              style={styles.input}
+              placeholder="Cidade-UF"
+              value={this.state.user_name}
+              onChangeText={user_name => this.setState({ user_name })}
+            ></TextInput>
+          </View>
+
+          <View style={styles.section}>
+            <Icon name="location-on" size={20} style={{ marginLeft: 10 }} />
+            <TextInput
+              style={styles.input}
+              placeholder="País"
+              value={this.state.user_name}
+              onChangeText={user_name => this.setState({ user_name })}
+            ></TextInput>
+          </View>
+
+          <View style={styles.section}>
             <Icon name="lock" size={20} style={{ marginLeft: 10 }} />
             <TextInput
               style={styles.input}
@@ -91,7 +111,7 @@ class SignUp extends Component {
             <Text style={styles.buttonText}>Registrar-se</Text>
           </TouchableOpacity>
           <Text
-            style={{ alignSelf: 'center', color: '#407ACE' }}
+            style={{ alignSelf: 'center', color: '#00669E',marginTop:10 }}
             onPress={() => this.props.navigation.navigate('Login')}>
             Já tem uma conta? Entrar
           </Text>
@@ -111,7 +131,7 @@ const styles = StyleSheet.create({
   button: {
     height: 50,
     borderRadius: 40,
-    backgroundColor: '#5d4eff',
+    backgroundColor: '#00669E',
     alignContent: 'center',
     justifyContent: 'center',
     alignItems: 'center',

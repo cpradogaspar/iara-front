@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, SafeAreaView, StyleSheet, View} from 'react-native';
+import {TouchableOpacity,Text, SafeAreaView, StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {onSignIn, isSignedIn, onSignOut} from '../auth';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -19,12 +19,13 @@ class Relatorio extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <View
-          style={styles.relatorioButton}
-          onPress={() => {
-            this.props.navigation.navigate('RelatorioForm');
-          }}>
-          <Text style={styles.relatorioText}>Fazer relatório +</Text>
+        <View>
+            <TouchableOpacity
+            style={styles.relatorioButton}
+            title="Sign In"
+            onPress={() => this.props.navigation.navigate('NovoRelatorio')}>
+            <Text style={styles.relatorioText}>Fazer relatório +</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );

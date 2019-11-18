@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView,View, Text } from 'react-native';
+import { SafeAreaView,View, Text,TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
 class Settings extends Component {
@@ -10,18 +10,11 @@ class Settings extends Component {
           flex: 1,
           alignItems: 'center',
         }}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Selecao')}>
         <View style={styles.options}>
-          <Text>Settings</Text>
+          <Text style={{fontSize:19}}>Alterar valor máximo e mínimo</Text>
         </View>
-        <View style={styles.options}>
-          <Text>Settings</Text>
-        </View>
-        <View style={styles.options}>
-          <Text>Settings</Text>
-        </View>
-        <View style={styles.options}>
-          <Text>Settings</Text>
-        </View>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }
@@ -29,10 +22,12 @@ class Settings extends Component {
 
 const styles = {
   options: {
-    borderWidth: 0.8,
-    margin: 10,
-    height: 50,
-    width: '95%',
+    borderBottomWidth: 0.8,
+    marginTop: 30,
+    height: 60,
+    justifyContent: 'center',
+    width: '75%',
+    alignItems:'center',
   }
 }
 
